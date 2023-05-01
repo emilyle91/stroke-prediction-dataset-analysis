@@ -30,3 +30,33 @@ t.test(strokepeople$bmi, normalpeople$bmi, alternative = "two.sided", conf.level
 #At 99% CI, the stroke people bmi is higher than normal people bmi at 0.47 - 2.82 bmi
 #Conclusion: Reject the null hypothesis, finding that higher bmi level is likely cause stroke
 
+#Plot the stroke people & normal people relevant charts to compare 
+#Import ggplot2 package
+library(ggplot2)
+
+#First charts: age and BMI of stroke people; age and BMI of normal people
+ggplot(data = strokepeople, mapping = aes(x = age, y = bmi)) +
+  geom_point() +
+  geom_smooth()
+
+ggplot(data = strokepeople) +
+  geom_point(mapping = aes(x = age, y = bmi), colour = "blue", pch = "+") +
+  labs(title = "The BMI pattern of stroke people", x = "Age of stroke people",
+       y = "BMI of stroke people")
+
+
+ggplot(data = normalpeople, mapping = aes(x = age, y = bmi)) +
+  geom_point() +
+  geom_smooth()
+
+ggplot(data = normalpeople) +
+  geom_point(mapping = aes(x = age, y = bmi), colour = "blue", pch = "+") +
+  labs(title = "The BMI pattern of normal people", x = "Age of normal people",
+       y = "BMI of normal people")
+
+
+#Conclusion from chart: 
+#number of normal people is greater than stroke people
+#the average bmi of stroke people (30) is higher than average bmi of normal people (28)
+#people older than 40 years old + BMI level higher than average of 25 is likely to encounter stroke
+
