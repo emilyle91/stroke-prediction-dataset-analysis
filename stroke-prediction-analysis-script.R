@@ -22,3 +22,11 @@ normalpeople$bmi <- as.numeric(normalpeople$bmi)
 #calculate mean BMI of people has stroke & mean BMI of people has no stroke
 mean(strokepeople$bmi, na.rm = TRUE)
 mean(normalpeople$bmi, na.rm = TRUE)
+
+#Do the statistical difference to check the hypothesis
+t.test(strokepeople$bmi, normalpeople$bmi, alternative = "two.sided", conf.level = 0.99)
+
+#The p-value = 0.00033 < 0.05 (threshold) --> The test is statistical difference
+#At 99% CI, the stroke people bmi is higher than normal people bmi at 0.47 - 2.82 bmi
+#Conclusion: Reject the null hypothesis, finding that higher bmi level is likely cause stroke
+
