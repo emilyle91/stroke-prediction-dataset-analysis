@@ -43,6 +43,8 @@ ggplot(data = normalpeople, mapping = aes(x = age, y = bmi)) +
   geom_point() +
   geom_smooth()
 
+#Another chart with same meaning 
+
 ggplot(data = strokepeople) +
   geom_point(mapping = aes(x = age, y = bmi), colour = "blue", pch = "+") +
   labs(title = "The BMI pattern of stroke people", x = "Age of stroke people",
@@ -53,7 +55,7 @@ ggplot(data = normalpeople) +
   labs(title = "The BMI pattern of normal people", x = "Age of normal people",
        y = "BMI of normal people")
 
-#Conclusion from chart: 
+#Conclusion from charts: 
 #number of normal people is greater than stroke people
 #the average bmi of stroke people (30) is higher than average bmi of normal people (28)
 #people older than 40 years old + BMI level higher than average of 25 is likely to encounter stroke
@@ -77,4 +79,28 @@ ggplot(gender_df, aes(x="", y=count, fill=gender)) +
   labs(title="Gender Distribution in Stroke Dataset") +
   scale_fill_manual(values=c("pink", "blue")) +
   theme_void()
+#Conclusion: Female have higher stroke risk than male however it is not significant.
 
+#b) Hypertension Distribution in Stroke Dataset
+#Rename the categories in the dummy variable "hypertension" of the dataset
+strokepeople$hypertension <- ifelse(strokepeople$hypertension == 0, "no hypertension", "hypertension")
+
+#Calculate the frequency of the hypertension in the stroke dataset
+
+hypertension_count <- table(strokepeople$hypertension)
+
+#Create hypertension dataframe
+hypertension_df <- as.data.frame(hypertension_count)
+
+#Rename the column of the dataframe
+colnames(hypertension_df) <- c("medical_background", "count")
+
+#Create pie chart
+ggplot(hypertension_df, aes(x="", y= factor(medical_background), fill=factor(medical_background))) + 
+  geom_bar(stat="identity", width = 1) +
+  coord_polar(theta="y") +
+  labs(title="Hypertension Distribution in Stroke Dataset") +
+  scale_fill_manual(values=c("red", "blue")) +
+  theme_void()
+
+#Conclusion: Having hypertension may not necessarily be a strong risk factor for stroke in this population.
