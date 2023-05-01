@@ -104,3 +104,23 @@ ggplot(hypertension_df, aes(x="", y= factor(medical_background), fill=factor(med
   theme_void()
 
 #Conclusion: Having hypertension may not necessarily be a strong risk factor for stroke in this population.
+
+#c) Heart Disease Distribution in Stroke Dataset
+#Rename the categories in the dummy variable "heart_disease" of the dataset
+strokepeople$heart_disease <- ifelse(strokepeople$heart_disease == 0, "No heart disease", "Heart disease")
+
+#Calculate the frequency of the heart disease in the stroke dataset
+
+heartdisease_count <- table(strokepeople$heart_disease)
+
+#Create heart disease dataframe
+heartdisease_df <- as.data.frame(heartdisease_count)
+
+#Rename the column of the dataframe
+colnames(heartdisease_df) <- c("Heart_Background", "count")
+
+#Create pie chart
+piepercent<- round(100*heartdisease_df$count/sum(heartdisease_df$count), 1)
+
+pie(heartdisease_df$count, labels = piepercent, radius = 1, main = "Heart Disease Distribution in Stroke Dataset", col = rainbow(2))
+legend("topright", legend = heartdisease_df$Heart_Background, cex = 0.8, fill = rainbow(2))
