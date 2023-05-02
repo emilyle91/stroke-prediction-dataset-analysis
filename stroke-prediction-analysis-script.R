@@ -149,5 +149,10 @@ par(mar = c(5, 4, 4, 8),                                  # Specify par paramete
 pie3D(smoking_df$count,labels = smoking_percentage ,explode = 0.1, main = "Smoking Distribution in Stroke Dataset")
 legend("topright", inset = c(-0.5, 0),legend = smoking_df$`Smoking status`, cex = 0.8, fill = rainbow(length(smoking_df$count)))
 
+#Task 4: Plot bar chart
+#import the tidyverse
+library(tidyverse)
+
+
 
 
