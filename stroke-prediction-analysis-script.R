@@ -153,6 +153,24 @@ legend("topright", inset = c(-0.5, 0),legend = smoking_df$`Smoking status`, cex 
 #import the tidyverse
 library(tidyverse)
 
+#a) Glucose level status of normal people and stroke people
 
+#The normal glucose level is below 100mg/dL. Plot the bar chart that distinct the normal glucose level and high glucose level in the normal people and stroke people
+#Step by step: need 4 info: stroke (number of =<100, number of > 100), normal people (number of =<100, number of > 100)
 
+#Gather required information for the bar chart
+
+#The glucose level of stroke
+stroke_glucose <- ifelse(strokepeople$avg_glucose_level > 100, "higher than normal (> 100 mg/dL)", "normal (<= 100 mg/dL)")
+stroke_glucose_count <- table(stroke_glucose)
+stroke_glucose_df <- as.matrix(stroke_glucose_count)
+
+Frequency <- c(137, 112)
+Glucose_level <- c("higher than normal (> 100 mg/dL)", "normal (<= 100 mg/dL)")
+barplot(stroke_glucose_df[,1],names.arg= Glucose_level,xlab="Glucose level",ylab="The number of stroke people",col= (rainbow(2)),
+        main="The Glucose level distribution of stroke sample",border="red")
+
+#The glucose level of normal
+normal_glucose <- ifelse(normalpeople$avg_glucose_level > 100, "higher than normal (> 100 mg/dL)", "normal (<= 100 mg/dL)")
+normal_glucose_count <- table(normal_glucose)
 
