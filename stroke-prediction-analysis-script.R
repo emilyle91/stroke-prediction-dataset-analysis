@@ -73,12 +73,10 @@ gender_df <- as.data.frame(gender_counts)
 colnames(gender_df) <- c("gender", "count")
 
 #Create pie chart
-ggplot(gender_df, aes(x="", y=count, fill=gender)) + 
-  geom_bar(stat="identity", width=1) +
-  coord_polar(theta="y") +
-  labs(title="Gender Distribution in Stroke Dataset") +
-  scale_fill_manual(values=c("pink", "blue")) +
-  theme_void()
+gender_percentage <- round (100*gender_df$count/sum(gender_df$count),1)
+
+pie(gender_df$count, labels = gender_percentage, radius = 1, main = "Gender Distribution in Stroke Dataset", col = rainbow(length(gender_df$count)))
+legend("topright", legend = gender_df$gender, cex = 0.8, fill = rainbow(length(gender_df$count)))
 #Conclusion: Female have higher stroke risk than male however it is not significant.
 
 #b) Hypertension Distribution in Stroke Dataset
