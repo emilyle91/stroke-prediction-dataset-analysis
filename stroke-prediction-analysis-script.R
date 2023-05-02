@@ -96,12 +96,10 @@ hypertension_df <- as.data.frame(hypertension_count)
 colnames(hypertension_df) <- c("medical_background", "count")
 
 #Create pie chart
-ggplot(hypertension_df, aes(x="", y= factor(medical_background), fill=factor(medical_background))) + 
-  geom_bar(stat="identity", width = 1) +
-  coord_polar(theta="y") +
-  labs(title="Hypertension Distribution in Stroke Dataset") +
-  scale_fill_manual(values=c("red", "blue")) +
-  theme_void()
+hypertension_percent<- round(100*hypertension_df$count/sum(hypertension_df$count), 1)
+
+pie(hypertension_df$count, labels = hypertension_percent, radius = 1, main = "Hypertension Distribution in Stroke Dataset", col = rainbow(2))
+legend("topright", legend = hypertension_df$medical_background, cex = 0.8, fill = rainbow(2))
 
 #Conclusion: Having hypertension may not necessarily be a strong risk factor for stroke in this population.
 
