@@ -10,6 +10,7 @@ library(Hmisc)
 #Hmisc command to take a brief look on the data set
 describe(strokedata)
 
+#Task 1: Check Hypothesis and do the Statistical Difference
 #Hypothesis: people who had stroke is higher in bmi than people who had no stroke.
 #Create two table: stroke people, normal people
 strokepeople = subset(strokedata, strokedata$stroke == 1)
@@ -30,6 +31,7 @@ t.test(strokepeople$bmi, normalpeople$bmi, alternative = "two.sided", conf.level
 #At 99% CI, the stroke people bmi is higher than normal people bmi at 0.47 - 2.82 bmi
 #Conclusion: Reject the null hypothesis, finding that higher bmi level is likely cause stroke
 
+#Task 2: Plot point chart
 #Plot the stroke people & normal people relevant charts to compare 
 #Import ggplot2 package
 library(ggplot2)
@@ -60,6 +62,7 @@ ggplot(data = normalpeople) +
 #the average bmi of stroke people (30) is higher than average bmi of normal people (28)
 #people older than 40 years old + BMI level higher than average of 25 is likely to encounter stroke
 
+#Task 3: Plot pie chart
 #Create pie chart table
 #a) Gender Distribution in Stroke Dataset
 
@@ -120,3 +123,31 @@ piepercent<- round(100*heartdisease_df$count/sum(heartdisease_df$count), 1)
 
 pie(heartdisease_df$count, labels = piepercent, radius = 1, main = "Heart Disease Distribution in Stroke Dataset", col = rainbow(2))
 legend("topright", legend = heartdisease_df$Heart_Background, cex = 0.8, fill = rainbow(2))
+
+#d) Smoking Status in the Stroke Dataset [3D Pie Chart]
+#Count the variable in the smoking status
+
+smoking_count <- table(strokepeople$smoking_status)
+
+#Create smoking status dataframe
+smoking_df <- as.data.frame(smoking_count)
+
+#Rename the column names of the smoking status dataframe
+colnames(smoking_df) <- c("Smoking status", "count")
+print(smoking_df)
+
+#Import the 3D pie chart package
+library(plotrix)
+
+#Create pie chart
+
+smoking_percentage <- paste0(round(smoking_df$count /sum(smoking_df$count) * 100, 1), "%")
+
+par(mar = c(5, 4, 4, 8),                                  # Specify par parameters
+    xpd = TRUE)
+
+pie3D(smoking_df$count,labels = smoking_percentage ,explode = 0.1, main = "Smoking Distribution in Stroke Dataset")
+legend("topright", inset = c(-0.5, 0),legend = smoking_df$`Smoking status`, cex = 0.8, fill = rainbow(length(smoking_df$count)))
+
+
+
