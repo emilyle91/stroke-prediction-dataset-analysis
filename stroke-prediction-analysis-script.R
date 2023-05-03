@@ -121,6 +121,7 @@ colnames(heartdisease_df) <- c("Heart_Background", "count")
 #Create pie chart
 piepercent<- round(100*heartdisease_df$count/sum(heartdisease_df$count), 1)
 
+
 pie(heartdisease_df$count, labels = piepercent, radius = 1, main = "Heart Disease Distribution in Stroke Dataset", col = rainbow(2))
 legend("topright", legend = heartdisease_df$Heart_Background, cex = 0.8, fill = rainbow(2))
 
@@ -146,9 +147,12 @@ smoking_percentage <- paste0(round(smoking_df$count /sum(smoking_df$count) * 100
 par(mar = c(5, 4, 4, 8),                                  # Specify par parameters
     xpd = TRUE)
 
-pie3D(smoking_df$count,labels = smoking_percentage ,explode = 0.1, main = "Smoking Distribution in Stroke Dataset")
-legend("topright", inset = c(-0.5, 0),legend = smoking_df$`Smoking status`, cex = 0.8, fill = rainbow(length(smoking_df$count)))
+png(file = "smokingpercentagepiechart.png") 
 
+pie3D(smoking_df$count,labels = smoking_percentage ,explode = 0.1, main = "Smoking Distribution in Stroke Dataset")
+legend("topright",legend = smoking_df$`Smoking status`, cex = 0.8, fill = rainbow(length(smoking_df$count)))
+
+dev.off()
 #Task 4: Plot bar chart
 #import the tidyverse
 library(tidyverse)
@@ -178,6 +182,8 @@ finalglucosedata_mt <- cbind(stroke_glucose_mt, normal_glucose_mt)
 #Change the column name of the matrix
 colnames(finalglucosedata_mt) = c("Stroke sample", "Normal sample")
 
+png(file = "glucosebarplot.png") 
+
 #Draw a barplot
 barplot(finalglucosedata_mt,
         main = "The Glucose Level Distribution in stroke and normal sample",
@@ -189,7 +195,8 @@ barplot(finalglucosedata_mt,
 legend("topleft",
        c("higher than normal (>100 mg/dL)","normal (<= 100mg/dL)"),
        fill = c("red","blue"),
-       cex = 0.6
+       cex = 1
 )
 
+dev.off()
 
