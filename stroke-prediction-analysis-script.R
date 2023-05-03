@@ -163,14 +163,33 @@ library(tidyverse)
 #The glucose level of stroke
 stroke_glucose <- ifelse(strokepeople$avg_glucose_level > 100, "higher than normal (> 100 mg/dL)", "normal (<= 100 mg/dL)")
 stroke_glucose_count <- table(stroke_glucose)
-stroke_glucose_df <- as.matrix(stroke_glucose_count)
-
-Frequency <- c(137, 112)
-Glucose_level <- c("higher than normal (> 100 mg/dL)", "normal (<= 100 mg/dL)")
-barplot(stroke_glucose_df[,1],names.arg= Glucose_level,xlab="Glucose level",ylab="The number of stroke people",col= (rainbow(2)),
-        main="The Glucose level distribution of stroke sample",border="red")
+#Create stroke matrix 
+stroke_glucose_mt <- as.matrix(stroke_glucose_count)
 
 #The glucose level of normal
 normal_glucose <- ifelse(normalpeople$avg_glucose_level > 100, "higher than normal (> 100 mg/dL)", "normal (<= 100 mg/dL)")
 normal_glucose_count <- table(normal_glucose)
+#Create normal matrix
+normal_glucose_mt <- as.matrix(normal_glucose_count)
+
+#Combine two matrix together by cbind function
+finalglucosedata_mt <- cbind(stroke_glucose_mt, normal_glucose_mt)
+
+#Change the column name of the matrix
+colnames(finalglucosedata_mt) = c("Stroke sample", "Normal sample")
+
+#Draw a barplot
+barplot(finalglucosedata_mt,
+        main = "The Glucose Level Distribution in stroke and normal sample",
+        xlab ="Glucose status",
+        ylab ="Number of people",
+        col = c("red","blue"),
+        beside = TRUE
+)
+legend("topleft",
+       c("higher than normal (>100 mg/dL)","normal (<= 100mg/dL)"),
+       fill = c("red","blue"),
+       cex = 0.6
+)
+
 
