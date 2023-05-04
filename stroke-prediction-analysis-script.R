@@ -182,21 +182,24 @@ finalglucosedata_mt <- cbind(stroke_glucose_mt, normal_glucose_mt)
 #Change the column name of the matrix
 colnames(finalglucosedata_mt) = c("Stroke sample", "Normal sample")
 
-png(file = "glucosebarplot.png") 
+jpeg(filename = "glucosebarplot.jpg", width = 800, height = 800, pointsize = 16) 
 
 #Draw a barplot
-barplot(finalglucosedata_mt,
+bp <- barplot(finalglucosedata_mt,
         main = "The Glucose Level Distribution in stroke and normal sample",
         xlab ="Glucose status",
         ylab ="Number of people",
-        col = c("red","blue"),
-        beside = TRUE
+        ylim = c(0, max(finalglucosedata_mt) + 500),
+        col = c("#bc4749","#6a994e"),
+        beside = TRUE,
+        cex.axis = 1.3,
+        cex.names = 1.3
 )
 legend("topleft",
-       c("higher than normal (>100 mg/dL)","normal (<= 100mg/dL)"),
-       fill = c("red","blue"),
-       cex = 1
+       legend = c("higher than normal (>100 mg/dL)","normal (<= 100mg/dL)"),
+       fill = c("#bc4749","#6a994e"),
+       cex = 1.3
 )
+text(bp, finalglucosedata_mt + 100, labels = finalglucosedata_mt, cex = 1.3)
 
 dev.off()
-
